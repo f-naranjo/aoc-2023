@@ -40,8 +40,41 @@ export const part1 = (rawInput) => {
 
 export const part2 = (rawInput) => {
   const input = parseInput(rawInput);
+  const numbers = [
+    [1, "one"],
+    [2, "two"],
+    [3, "three"],
+    [4, "four"],
+    [5, "five"],
+    [6, "six"],
+    [7, "seven"],
+    [8, "eight"],
+    [9, "nine"],
+  ];
+  const strings = input.split("\n");
+  const filtered = strings.map((str) => {
+    const cont = [];
+    for (let i = 1; i <= str.length; i++) {
+      const text = str.slice(0, i);
+      numbers.forEach((lett) => {
+        // if (text.endsWith(lett[0]) || text.endsWith(lett[1])) {
+        //   cont.push(lett[0]);
+        // }
+        for (let j = text.length; j >= 0; j--) {
+          if (
+            lett[0].toString() === text.slice(j, text.length) ||
+            lett[1] === text.slice(j, text.length)
+          ) {
+            cont.push(lett[0]);
+            break;
+          }
+        }
+      });
+    }
+    return cont;
+  });
 
-  return;
+  return filtered.reduce((ac, cv) => ac + +`${cv[0]}${cv[cv.length - 1]}`, 0);
 };
 
 // You can use the dev mode adding a console log here
